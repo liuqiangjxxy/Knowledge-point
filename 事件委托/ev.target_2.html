@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>事件委托</title>
+    <style type="text/css">
+    #ul1 li {
+        height: 50px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="button" name="" id="btn" value="添加" />
+        <ul id="ul1">
+            <li>111</li>
+            <li>222</li>
+            <li>333</li>
+            <li>444</li>
+        </ul>
+    </div>
+    <!--
+    
+    <script type="text/javascript">
+    //现在是移入li，li变红，移出li，li变白，这么一个效果，然后点击按钮，可以向ul中添加一个li子节点
+        window.onload = function(){
+            var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.getElementsByTagName('li');
+            var num = 4;
+            
+            //鼠标移入变红，移出变白
+            for(var i=0; i<aLi.length;i++){
+                aLi[i].onmouseover = function(){
+                    this.style.background = 'red';
+                };
+                aLi[i].onmouseout = function(){
+                    this.style.background = '#fff';
+                }
+            }
+            //添加新节点
+            oBtn.onclick = function(){
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111*num;
+                oUl.appendChild(oLi);
+            };
+        }
+    </script>
+    -->
+    
+    <!--
+    <script type="text/javascript">
+    ////这是一般的做法，但是你会发现，新增的li是没有事件的，说明添加子节点的时候，事件没有一起添加进去，这不是我们想要的结果，那怎么做呢？一般的解决方案会是这样，将for循环用一个函数包起来，命名为mHover
+        window.onload = function(){
+            var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.getElementsByTagName('li');
+            var num = 4;
+            
+            function mHover () {
+                //鼠标移入变红，移出变白
+                for(var i=0; i<aLi.length;i++){
+                    aLi[i].onmouseover = function(){
+                        this.style.background = 'red';
+                    };
+                    aLi[i].onmouseout = function(){
+                        this.style.background = '#fff';
+                    }
+                }
+            }
+            mHover ();
+            //添加新节点
+            oBtn.onclick = function(){
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111*num;
+                oUl.appendChild(oLi);
+                mHover ();
+            };
+        }
+    </script>
+-->
+    <script type="text/javascript">
+       //虽然功能实现了，看着还挺好，但实际上无疑是又增加了一个dom操作，在优化性能方面是不可取的，那么有事件委托的方式，能做到优化吗？
+   
+        window.onload = function(){
+            var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.getElementsByTagName('li');
+            var num = 4;
+            
+            //事件委托，添加的子元素也有事件
+            oUl.onmouseover = function(ev){
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if(target.nodeName.toLowerCase() == 'li'){
+                    target.style.background = "red";
+                }
+                
+            };
+            oUl.onmouseout = function(ev){
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if(target.nodeName.toLowerCase() == 'li'){
+                    target.style.background = "#fff";
+                }
+                
+            };
+            
+            //添加新节点
+            oBtn.onclick = function(){
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111*num;
+                oUl.appendChild(oLi);
+            };
+        }
+   </script>
+
+   
+
+
+</body>
+
+</html>

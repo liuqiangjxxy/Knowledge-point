@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>事件委托</title>
+    <style type="text/css">
+    #ul1 li {
+        height: 50px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <ul id="ul1">
+            <li>111</li>
+            <li>222</li>
+            <li>333</li>
+            <li>444</li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    window.onload = function() {
+    	
+        var oUl = document.getElementById("ul1");
+        var aLi = oUl.getElementsByTagName('li');
+        console.log(aLi[1].innerHTML)
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].onclick = function() {
+                alert(this.innerHTML);
+            }
+        }
+    }
+    </script>
+
+    <div>
+        <ul id="ul2">
+            <li>111</li>
+            <li>222</li>
+            <li>333</li>
+            <li>444</li>
+        </ul>
+    </div>
+
+	<script type="text/javascript">
+		window.onload = function(){
+		　　var oUl = document.getElementById("ul2");
+		　　oUl.onclick = function(ev){
+		　　　　var ev = ev || window.event;
+		　　　　var target = ev.target || ev.srcElement;
+		　　　　if(target.nodeName.toLowerCase() == 'li'){
+		　 　　　　　　	alert(123);
+		　　　　　　　  alert(target.innerHTML);
+		　　　　}
+		　　}
+		}
+	</script>
+
+	<div id="box">
+        <input type="button" id="add" value="添加" />
+        <input type="button" id="remove" value="删除" />
+        <input type="button" id="move" value="移动" />
+        <input type="button" id="select" value="选择" />
+    </div>
+    <br>
+
+    <script type="text/javascript">
+    	window.onload = function(){
+            var Add = document.getElementById("add");
+            var Remove = document.getElementById("remove");
+            var Move = document.getElementById("move");
+            var Select = document.getElementById("select");
+            
+            Add.onclick = function(){
+                alert('添加');
+            };
+            Remove.onclick = function(){
+                alert('删除');
+            };
+            Move.onclick = function(){
+                alert('移动');
+            };
+            Select.onclick = function(){
+                alert('选择');
+            }
+            
+        }
+
+
+    </script>
+	<div id="box1">
+        <input type="button" id="add" value="添加" />
+        <input type="button" id="remove" value="删除" />
+        <input type="button" id="move" value="移动" />
+        <input type="button" id="select" value="选择" />
+    </div>
+
+<script type="text/javascript">
+	window.onload = function(){
+            var oBox = document.getElementById("box1");
+            oBox.onclick = function (ev) {
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if(target.nodeName.toLocaleLowerCase() == 'input'){
+                    switch(target.id){
+                        case 'add' :
+                            alert('添加');
+                            break;
+                        case 'remove' :
+                            alert('删除');
+                            break;
+                        case 'move' :
+                            alert('移动');
+                            break;
+                        case 'select' :
+                            alert('选择');
+                            break;
+                    }
+                }
+            }
+            
+        }
+</script>
+
+
+
+</body>
+
+</html>
