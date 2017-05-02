@@ -1,0 +1,31 @@
+    <div>
+        <div id="body_clonedNode">
+        </div>
+    </div>   
+
+
+var sourceNode = document.getElementById("body_clonedNode");
+
+        function result_reward(result) {
+            //console.log(result);
+            for (var i = 0; i < result.length; i++) {
+                var data = result[i];
+                var clonedNode = sourceNode.cloneNode(true); // 克隆节点
+
+                //re = new RegExp("-", "g");
+                var data_id = data.id.replace(re, "");
+                clonedNode.setAttribute("id", "clone_" + data_id); // 修改一下id 值，避免id 重复
+                clonedNode.setAttribute("class", "clone_remove");
+                sourceNode.parentNode.appendChild(clonedNode); // 在父节点插入克隆的节点
+
+
+                $targetNode = $('#clone_' + data_id);
+                $targetNode.find(".ask_title").text(data.question);
+                //$targetNode.find(".reward_Answer").attr("question_id",data_id);
+                $targetNode.find(".reward_Answer").attr("ask", data.question);
+                $targetNode.find(".reward_Answer").attr("onclick", "Answer('" + data_id + "','" + data.question + "')");
+
+
+            }
+        }
+

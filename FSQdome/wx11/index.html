@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	@media screen and (min-width:1360px){
+		
+	}
+	@media screen and (max-width:1360px){
+
+	}
+    @media screen and (max-width:1200px){
+
+    }
+
+	<script language="javascript" type="text/javascript">  
+function addCookie(name,value,days,path){   /**添加设置cookie**/  
+    var name = escape(name);  
+    var value = escape(value);  
+    var expires = new Date();  
+    expires.setTime(expires.getTime() + days * 3600000 * 24);  
+    //path=/，表示cookie能在整个网站下使用，path=/temp，表示cookie只能在temp目录下使用  
+    path = path == "" ? "" : ";path=" + path;  
+    //GMT(Greenwich Mean Time)是格林尼治平时，现在的标准时间，协调世界时是UTC  
+    //参数days只能是数字型  
+    var _expires = (typeof days) == "string" ? "" : ";expires=" + expires.toUTCString();  
+    document.cookie = name + "=" + value + _expires + path;  
+}  
+function getCookieValue(name){  /**获取cookie的值，根据cookie的键获取值**/  
+    //用处理字符串的方式查找到key对应value  
+    var name = escape(name);  
+    //读cookie属性，这将返回文档的所有cookie  
+    var allcookies = document.cookie;         
+    //查找名为name的cookie的开始位置  
+    name += "=";  
+    var pos = allcookies.indexOf(name);      
+    //如果找到了具有该名字的cookie，那么提取并使用它的值  
+    if (pos != -1){                                             //如果pos值为-1则说明搜索"version="失败  
+        var start = pos + name.length;                  //cookie值开始的位置  
+        var end = allcookies.indexOf(";",start);        //从cookie值开始的位置起搜索第一个";"的位置,即cookie值结尾的位置  
+        if (end == -1) end = allcookies.length;        //如果end值为-1说明cookie列表里只有一个cookie  
+        var value = allcookies.substring(start,end); //提取cookie的值  
+        return (value);                           //对它解码        
+    }else{  //搜索失败，返回空字符串  
+        return "";  
+    }  
+}  
+function deleteCookie(name,path){   /**根据cookie的键，删除cookie，其实就是设置其失效**/  
+    var name = escape(name);  
+    var expires = new Date(0);  
+    path = path == "" ? "" : ";path=" + path;  
+    document.cookie = name + "="+ ";expires=" + expires.toUTCString() + path;  
+}  
+  
+/**实现功能，保存用户的登录信息到cookie中。当登录页面被打开时，就查询cookie**/  
+window.onload = function(){  
+    var userNameValue = getCookieValue("userName");  
+    document.getElementById("txtUserName").value = userNameValue;  
+    var userPassValue = getCookieValue("userPass");  
+    document.getElementById("txtUserPass").value = userPassValue;  
+}  
+  
+function userLogin(){   /**用户登录，其中需要判断是否选择记住密码**/  
+    //简单验证一下  
+    var userName = document.getElementById("txtUserName").value;  
+    if(userName == ''){  
+        alert("请输入用户名。");  
+        return;  
+    }  
+    var userPass = document.getElementById("txtUserPass").value;  
+    if(userPass == ''){  
+        alert("请输入密码。");  
+        return;  
+    }  
+    var objChk = document.getElementById("chkRememberPass");  
+    if(objChk.checked){  
+        //添加cookie  
+        addCookie("userName",userName,7,"/");  
+        addCookie("userPass",userPass,7,"/");  
+        alert("记住了你的密码登录。");  
+        window.location.href = "http://www.baidu.com";  
+    }else{  
+        alert("不记密码登录。");  
+        window.location.href = "http://www.baidu.com";  
+    }  
+}  
+</script>  
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="网红, 外国网红，美国，俄罗斯，电商" />
+    <meta name="description" content="海商客，国内首家国外网红电商合作平台。专注中国产品在海外的品牌推广。" />
+    <link rel="stylesheet" href="/static/BeAlert/BeAlert.css" type="text/css">
+    <link rel="icon" href="/static/img/hsk-logo_1.png" mce_href="/static/img/hsk-logo.png" type="image/x-icon">
+	<title>JOIN US</title>
+	<link rel="stylesheet" href="/static/css/Join.css">
+</head>
+<body>
+   <div id="form">
+ <div class="form-list">
+          <div class="img">
+              <img src="/static/img/hsk-logo_1.png">
+              <span>welcome to join us</span>
+          </div>
+           <div class="text">
+               <h2 style="color: red">Welcome to join us</h2>
+               <p>Provide targeted promotion services</p>
+               <p>More people know you.  </p>
+               <p></p>
+           </div>
+             <div> <span class="txt"> Name :</span>    <input type="text"  name="Name" autofocus="autofocus"/><br /></div>
+             <div> <span class="txt"> Mobile :</span>  <input type="text" name="Mobile" autofocus="autofocus"/><br /></div>
+             <div> <span class="txt"> Email :</span>  <input type="email" name="Email" autofocus="autofocus"/><br /></div>
+             <div class="message-list"> <span class="txt"> leave a message :</span> <textarea name="content" cols="76" rows="8" class="content"></textarea><br /></div>
+         	 <div > <input type="submit" class="btn" value="submit">    </div>
+  </div>
+  </div>
+{#   <script src="/static/js/jquery.min.js"></script>#}
+   <script type="text/javascript" src="/static/js/jQuery1.7.2.min.js"></script>
+   <script src="/static/BeAlert/BeAlert.js"></script>
+   <script>
+           var data;
+            $(".btn").click(function(){
+                var Name=$("input[name='Name']").val();
+                var Mobile=$("input[name='Mobile']").val();
+                var Email=$("input[name='Email']").val();
+                var Content=$("textarea[name='content']").val();
+
+
+                if(Name == ""){
+                    alert("Please enter your name.");
+                    return;
+                }
+                //console.log("Mobile");
+                //console.log(Mobile);
+                if(Mobile == ""){
+                    alert("Please enter your phone.");
+                    return
+                }
+
+                var szReg=/\w@\w*\.\w/;
+                if(!szReg.test(Email))
+                {
+                    alert("Please enter right email.");
+                    return;
+                }
+
+                data={"name": Name,"mobile": Mobile,"email": Email,"content": Content};
+                if(!(Name==""||Mobile==""||Email==""||Content=="")){
+                      setData(data)
+                }
+            });
+             function setData(data){
+                 $.ajax({
+                      type:"post",
+                      url:"/web/user/celebrity/demand/do",
+                      data: data,
+                      success:function(){
+                          alert("Submitted successfully！", "", function () {
+                            //after click the confirm button, will run this callback function
+                            }, {type: 'success', confirmButtonText: 'OK'});
+                      }
+                 })
+             }
+   </script>
+
+
+</body>
+</html>
